@@ -24,14 +24,19 @@ object Player {
       val legalActionNum = sc.nextInt()
       sc.nextLine()
       for(i <- 0 until legalActionNum) {
-        val (com, index, move, block) =
-          (sc.next(), sc.nextInt(), sc.next(), sc.next())
-        sc.nextLine()
+        // val (com, index, move, block) =
+        //   (sc.next(), sc.nextInt(), sc.next(), sc.next())
+        //sc.nextLine()
+        val hoge = sc.nextLine()
+
+        if(i == legalActionNum - 1)
+          println(hoge)
       }
-      
-      println("MOVE&BUILD 0 N S")
+
+
+      // println("MOVE&BUILD 0 N S")
     }
   }
 }
 
-// To debug: Console.err.println("Debug messages...")
+// Console.err.println("Debug messages...")
