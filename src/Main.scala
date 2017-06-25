@@ -1,6 +1,23 @@
 import java.util.Scanner
 
+sealed trait Direction
+case object N extends Direction
+case object NE extends Direction
+case object E extends Direction
+case object SE extends Direction
+case object S extends Direction
+case object SW extends Direction
+case object W extends Direction
+case object NW extends Direction
+
+class Command(com: String, index: Int, dir1: Direction, dir2: Direction) {
+  this(com: String, index: Int, dir1: String, dir2: String) =
+    new Command()
+}
+
 object Player {
+  def printer(com: )
+
   def main(args: Array[String]){
     val sc = new Scanner(System.in)
 
@@ -24,17 +41,12 @@ object Player {
       val legalActionNum = sc.nextInt()
       sc.nextLine()
       for(i <- 0 until legalActionNum) {
-        // val (com, index, move, block) =
-        //   (sc.next(), sc.nextInt(), sc.next(), sc.next())
-        //sc.nextLine()
-        val hoge = sc.nextLine()
-
-        if(i == legalActionNum - 1)
-          println(hoge)
+        val (com, index, move, block) =
+          (sc.next(), sc.nextInt(), sc.next(), sc.next())
+        sc.nextLine()
       }
 
-
-      // println("MOVE&BUILD 0 N S")
+      println("MOVE&BUILD 0 N S")
     }
   }
 }
