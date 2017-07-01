@@ -12,7 +12,7 @@ class Command(val action: Action, val index: Int,
 object Player {
   def printer(command: Command): Unit = {
     import command._
-    println(s"$action $index $dir1.code $dir2.code")
+    println(s"${action.code} ${index} ${dir1.code} ${dir2.code}")
   }
 
   def main(args: Array[String]){
