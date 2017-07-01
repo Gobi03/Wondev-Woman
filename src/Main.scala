@@ -1,22 +1,19 @@
+import Entities._
+
 import java.util.Scanner
 
-sealed trait Direction
-case object N extends Direction
-case object NE extends Direction
-case object E extends Direction
-case object SE extends Direction
-case object S extends Direction
-case object SW extends Direction
-case object W extends Direction
-case object NW extends Direction
-
-class Command(com: String, index: Int, dir1: Direction, dir2: Direction) {
-  this(com: String, index: Int, dir1: String, dir2: String) =
-    new Command()
+class Command(val action: Action, val index: Int,
+              val dir1: Direction, val dir2: Direction) {
+  def this(action: String, index: Int, dir1: String, dir2: String) =
+    this(stringToCommand(action), index,
+    stringToDirection(dir1), stringToDirection(dir2))
 }
 
 object Player {
-  def printer(com: )
+  def printer(command: Command): Unit = {
+    import command._
+    println(s"$action $index $dir1.code $dir2.code")
+  }
 
   def main(args: Array[String]){
     val sc = new Scanner(System.in)
@@ -38,15 +35,16 @@ object Player {
         val (otherx, othery) = (sc.nextInt(), sc.nextInt())
       }
 
-      val legalActionNum = sc.nextInt()
+      val legalCommandNum = sc.nextInt()
       sc.nextLine()
-      for(i <- 0 until legalActionNum) {
-        val (com, index, move, block) =
-          (sc.next(), sc.nextInt(), sc.next(), sc.next())
+      val commands = new Array[Command](legalCommandNum)
+      for(i <- 0 until legalCommandNum) {
+        commands(i) =
+          new Command(sc.next(), sc.nextInt(), sc.next(), sc.next())
         sc.nextLine()
       }
 
-      println("MOVE&BUILD 0 N S")
+      printer(commands(0))
     }
   }
 }
