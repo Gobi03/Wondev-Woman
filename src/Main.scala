@@ -1,13 +1,10 @@
 import CommonPackage._
-
 import Entities._
-
 import GameGadgetsPackage._
-
 import FieldPackage._
 import HumanPackage._
-
 import GameStatePackage._
+import GameAIPackage._
 
 import scala.annotation.tailrec
 import java.util.Scanner
@@ -85,8 +82,10 @@ object Player {
   @tailrec
   def everyTurnProcess(oldFieldState: FieldState, oldGameState: GameState): (FieldState, GameState) = {
     val (fState, gs) = turnInput(oldFieldState, oldGameState)
+    
+    val ai = new GameAI(fState, gs)
+    printer(ai.evaluate().get)
 
-    printer(gs.choices(gs.choiceNum / 2))
     everyTurnProcess(fState, gs)
   }
 
@@ -94,7 +93,8 @@ object Player {
   /* main process */
   def main(args: Array[String]){
     val (fState, gs) = initialInput()
-    printer(gs.choices(gs.choiceNum / 2))  // temporal output
+    val ai = new GameAI(fState, gs)
+    printer(ai.evaluate().get)
 
     // game loop
     everyTurnProcess(fState, gs)
