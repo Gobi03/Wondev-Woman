@@ -44,14 +44,16 @@ object Entities {
   case object One extends Square("1")
   case object Two extends Square("2")
   case object Three extends Square("3")
+  case object Four extends Square("4")
 
   def stringToSquare(square: String): Square = {
     square match {
-      case "." | "4" => Wall
+      case "." => Wall
       case "0" => Zero
       case "1" => One
       case "2" => Two
       case "3" => Three
+      case "4" => Four
       case _ => throw new Exception("Not Square String")
     }
   }

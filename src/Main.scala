@@ -3,6 +3,7 @@ import CommonPackage._
 import Entities._
 
 import GameGadgetsPackage._
+
 import FieldPackage._
 import HumanPackage._
 
@@ -42,10 +43,10 @@ object Player {
 
     val choiceNum = sc.nextInt()
     sc.nextLine()  // remove newline
-    val choices = new Array[GameGadgetsPackage.Command](choiceNum)
+    val choices = new Array[Command](choiceNum)
     for(i <- 0 until choiceNum) {
       choices(i) =
-        new GameGadgetsPackage.Command(sc.next(), sc.nextInt(), sc.next(), sc.next())
+        new Command(sc.next(), sc.nextInt(), sc.next(), sc.next())
       sc.nextLine()  // remove newline
     }
     val gameState = new GameState(players, enemies, choices)
@@ -70,10 +71,10 @@ object Player {
 
     val choiceNum = sc.nextInt()
     sc.nextLine()  // remove newline
-    val choices = new Array[GameGadgetsPackage.Command](choiceNum)
+    val choices = new Array[Command](choiceNum)
     for(i <- 0 until choiceNum) {
       choices(i) =
-        new GameGadgetsPackage.Command(sc.next(), sc.nextInt(), sc.next(), sc.next())
+        new Command(sc.next(), sc.nextInt(), sc.next(), sc.next())
       sc.nextLine()  // remove newline
     }
 
