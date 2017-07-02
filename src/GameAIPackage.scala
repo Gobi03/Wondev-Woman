@@ -9,7 +9,7 @@ object GameAIPackage {
   trait GameAITrait {
 
     def runCommand(): Unit
-    def undoCommand(): Boolean
+    def undoCommand(): Unit
 
     def evaluate(): Command
   }
@@ -29,7 +29,7 @@ object GameAIPackage {
       }
     }
 
-    def undoCommand(): Boolean = ???
+    def undoCommand(com: Command): Unit = ???
 
     /* evaluators */
     @tailrec
