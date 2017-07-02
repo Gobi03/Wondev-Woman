@@ -1,13 +1,10 @@
 import CommonPackage._
-
 import Entities._
-
 import GameGadgetsPackage._
-
 import FieldPackage._
 import HumanPackage._
-
 import GameStatePackage._
+import GameAIPackage._
 
 import scala.annotation.tailrec
 import java.util.Scanner

@@ -10,6 +10,7 @@ object FieldPackage {
 
     // methods
     def apply(point: Point): Square
+    def copyField(): Array[Array[Square]]
     def squaresParseInputer(suqaresStr: String, row: Int): Unit
   }
 
@@ -24,6 +25,8 @@ object FieldPackage {
 
     // methods
     def apply(p: Point): Square = (field(p.y)(p.x))
+
+    def copyField(): Array[Array[Square]] = field.clone
 
     def squaresParseInputer(squaresStr: String, row: Int): Unit = {
       for(x <- 1 to width){
