@@ -82,9 +82,9 @@ object Player {
   @tailrec
   def everyTurnProcess(oldFieldState: FieldState, oldGameState: GameState): (FieldState, GameState) = {
     val (fState, gs) = turnInput(oldFieldState, oldGameState)
-    
+
     val ai = new GameAI(fState, gs)
-    printer(ai.evaluate().get)
+    printer(ai.evaluate())
 
     everyTurnProcess(fState, gs)
   }
@@ -94,7 +94,7 @@ object Player {
   def main(args: Array[String]){
     val (fState, gs) = initialInput()
     val ai = new GameAI(fState, gs)
-    printer(ai.evaluate().get)
+    printer(ai.evaluate())
 
     // game loop
     everyTurnProcess(fState, gs)

@@ -46,8 +46,8 @@ object Entities {
   case object Three extends Square("3")
   case object Four extends Square("4")
 
-  def stringToSquare(square: String): Square = {
-    square match {
+  def stringToSquare(squareCode: String): Square = {
+    squareCode match {
       case "." => Wall
       case "0" => Zero
       case "1" => One
@@ -56,5 +56,12 @@ object Entities {
       case "4" => Four
       case _ => throw new Exception("Not Square String")
     }
+  }
+  def incrSquare(square: Square): Square = {
+    case Zero => One
+    case One => Two
+    case Two => Three
+    case Three => Four
+    case _   => throw new Exception("This Square can't increment")
   }
 }
