@@ -7,7 +7,7 @@ touch ${file}
 
 cat Entities.scala >> ${file}
 
-cat GameObjects.scala >> ${file}
-cat FieldObject.scala >> ${file}
+cat GameGadgetsPackage.scala >> ${file}
+cat FieldPackage.scala >> ${file}
 
 cat Main.scala >> ${file}

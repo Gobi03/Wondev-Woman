@@ -1,6 +1,6 @@
 import Entities._
-import GameObjects._
-import FieldObject._
+import GameGadgetsPackage._
+import FieldPackage._
 
 import java.util.Scanner
 
@@ -9,12 +9,12 @@ object Player {
   val sc = new Scanner(System.in)
 
   def initialInput(): FieldState = {
-    // first only input
+    // first-only input
     val height = sc.nextInt()
     val playerNum = sc.nextInt()
     sc.nextLine()
 
-    // every turn input
+    // every-turn input
     val firstLine = sc.nextLine()
     val width = firstLine.length
     val fieldState = new FieldState(height, width)

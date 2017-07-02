@@ -1,4 +1,4 @@
-object GameObjects {
+object GameGadgetsPackage {
 
   import Entities._
 

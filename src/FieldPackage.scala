@@ -1,4 +1,4 @@
-object FieldObject {
+object FieldPackage {
   import Entities._
 
   trait FieldStateTrait {

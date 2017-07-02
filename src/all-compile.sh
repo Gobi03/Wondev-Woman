@@ -2,7 +2,7 @@
 
 fsc Entities.scala
 
-fsc GameObjects.scala
-fsc FieldObject.scala
+fsc GameGadgetsPackage.scala
+fsc FieldPackage.scala
 
 fsc Main.scala
