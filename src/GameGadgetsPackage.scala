@@ -1,5 +1,4 @@
 object GameGadgetsPackage {
-
   import Entities._
 
   class Command(val action: Action, val index: Int,
