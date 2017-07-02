@@ -1,3 +1,5 @@
+import CommonPackage._
+
 import Entities._
 
 import GameGadgetsPackage._
