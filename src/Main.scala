@@ -1,26 +1,52 @@
 import Entities._
+import GameObjects._
+import FieldObject._
 
 import java.util.Scanner
 
-class Command(val action: Action, val index: Int,
-              val dir1: Direction, val dir2: Direction) {
-  def this(action: String, index: Int, dir1: String, dir2: String) =
-    this(stringToCommand(action), index,
-    stringToDirection(dir1), stringToDirection(dir2))
-}
 
 object Player {
-  def printer(command: Command): Unit = {
-    import command._
-    println(s"${action.code} ${index} ${dir1.code} ${dir2.code}")
-  }
+  val sc = new Scanner(System.in)
 
-  def main(args: Array[String]){
-    val sc = new Scanner(System.in)
-
+  def initialInput(): FieldState = {
+    // first only input
     val height = sc.nextInt()
     val playerNum = sc.nextInt()
     sc.nextLine()
+
+    // every turn input
+    val firstLine = sc.nextLine()
+    val width = firstLine.length
+    val fieldState = new FieldState(height, width)
+    fieldState.squaresParseInputer("." + firstLine, 1)
+    for(y <- 2 to height){
+      val input = "." + sc.nextLine()
+      fieldState.squaresParseInputer(input, y)
+    }
+
+    for(i <- 0 until playerNum) {
+      val (unitX, unitY) = (sc.nextInt(), sc.nextInt())
+    }
+    for(i <- 0 until playerNum) {
+      val (enemyX, enemyY) = (sc.nextInt(), sc.nextInt())
+    }
+
+    val legalCommandNum = sc.nextInt()
+    sc.nextLine()
+    val commands = new Array[Command](legalCommandNum)
+    for(i <- 0 until legalCommandNum) {
+      commands(i) =
+        new Command(sc.next(), sc.nextInt(), sc.next(), sc.next())
+      sc.nextLine()
+    }
+
+    fieldState
+  }
+
+  
+  def main(args: Array[String]){
+    val fieldState = initialInput()
+
 
     // game loop
     while(true) {
@@ -32,7 +58,7 @@ object Player {
         val (unitx, unity) = (sc.nextInt(), sc.nextInt())
       }
       for(i <- 0 until playerNum) {
-        val (otherx, othery) = (sc.nextInt(), sc.nextInt())
+        val (enemyX, enemyY) = (sc.nextInt(), sc.nextInt())
       }
 
       val legalCommandNum = sc.nextInt()
