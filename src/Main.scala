@@ -1,6 +1,9 @@
 import Entities._
+
 import GameGadgetsPackage._
 import FieldPackage._
+import HumanPackage._
+
 
 import java.util.Scanner
 
@@ -25,19 +28,19 @@ object Player {
     }
 
     for(i <- 0 until playerNum) {
-      val (unitX, unitY) = (sc.nextInt(), sc.nextInt())
+      val player = new Human(sc.nextInt(), sc.nextInt())
     }
     for(i <- 0 until playerNum) {
-      val (enemyX, enemyY) = (sc.nextInt(), sc.nextInt())
+      val enemy = new Human(sc.nextInt(), sc.nextInt())
     }
 
-    val legalCommandNum = sc.nextInt()
+    val choiceNum = sc.nextInt()
     sc.nextLine()
-    val commands = new Array[Command](legalCommandNum)
-    for(i <- 0 until legalCommandNum) {
+    val commands = new Array[Command](choiceNum)
+    for(i <- 0 until choiceNum) {
       commands(i) =
         new Command(sc.next(), sc.nextInt(), sc.next(), sc.next())
-      sc.nextLine()
+      sc.nextLine()  // remove newline
     }
 
     fieldState
@@ -61,10 +64,10 @@ object Player {
         val (enemyX, enemyY) = (sc.nextInt(), sc.nextInt())
       }
 
-      val legalCommandNum = sc.nextInt()
+      val choiceNum = sc.nextInt()
       sc.nextLine()
-      val commands = new Array[Command](legalCommandNum)
-      for(i <- 0 until legalCommandNum) {
+      val commands = new Array[Command](choiceNum)
+      for(i <- 0 until choiceNum) {
         commands(i) =
           new Command(sc.next(), sc.nextInt(), sc.next(), sc.next())
         sc.nextLine()
