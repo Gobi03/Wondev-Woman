@@ -1,51 +1,100 @@
 import Entities._
 
+import GameGadgetsPackage._
+import FieldPackage._
+import HumanPackage._
+
+import GameStatePackage._
+
+import scala.annotation.tailrec
 import java.util.Scanner
 
-class Command(val action: Action, val index: Int,
-              val dir1: Direction, val dir2: Direction) {
-  def this(action: String, index: Int, dir1: String, dir2: String) =
-    this(stringToCommand(action), index,
-    stringToDirection(dir1), stringToDirection(dir2))
-}
 
 object Player {
-  def printer(command: Command): Unit = {
-    import command._
-    println(s"${action.code} ${index} ${dir1.code} ${dir2.code}")
-  }
+  val sc = new Scanner(System.in)
 
-  def main(args: Array[String]){
-    val sc = new Scanner(System.in)
-
+  def initialInput(): (FieldState, GameState) = {
+    /* first-only input */
     val height = sc.nextInt()
     val playerNum = sc.nextInt()
     sc.nextLine()
 
-    // game loop
-    while(true) {
-      val field = new Array[String](height)
-      for(i <- 0 until height)
-        field(i) = sc.nextLine()
-
-      for(i <- 0 until playerNum) {
-        val (unitx, unity) = (sc.nextInt(), sc.nextInt())
-      }
-      for(i <- 0 until playerNum) {
-        val (otherx, othery) = (sc.nextInt(), sc.nextInt())
-      }
-
-      val legalCommandNum = sc.nextInt()
-      sc.nextLine()
-      val commands = new Array[Command](legalCommandNum)
-      for(i <- 0 until legalCommandNum) {
-        commands(i) =
-          new Command(sc.next(), sc.nextInt(), sc.next(), sc.next())
-        sc.nextLine()
-      }
-
-      printer(commands(0))
+    /* every-turn input */
+    val firstLine = sc.nextLine()
+    val width = firstLine.length
+    val fieldState = new FieldState(height, width)
+    fieldState.squaresParseInputer("." + firstLine, 1)
+    for(y <- 2 to height){
+      val input = "." + sc.nextLine()
+      fieldState.squaresParseInputer(input, y)
     }
+
+    val players = new Array[Human](playerNum)
+    val enemies = new Array[Human](playerNum)
+    for(i <- 0 until playerNum) {
+      players(i) = new Human(sc.nextInt(), sc.nextInt())
+    }
+    for(i <- 0 until playerNum) {
+      enemies(i) = new Human(sc.nextInt(),sc.nextInt())
+    }
+
+    val choiceNum = sc.nextInt()
+    sc.nextLine()  // remove newline
+    val choices = new Array[GameGadgetsPackage.Command](choiceNum)
+    for(i <- 0 until choiceNum) {
+      choices(i) =
+        new GameGadgetsPackage.Command(sc.next(), sc.nextInt(), sc.next(), sc.next())
+      sc.nextLine()  // remove newline
+    }
+    val gameState = new GameState(players, enemies, choices)
+
+    (fieldState, gameState)
+  }
+
+  def turnInput(fState: FieldState, gs: GameState): (FieldState, GameState) = {
+    for(y <- 1 to fState.height){
+      val input = "." + sc.nextLine()
+      fState.squaresParseInputer(input, y)
+    }
+
+    val players = new Array[Human](gs.playerNum)
+    val enemies = new Array[Human](gs.playerNum)
+    for(i <- 0 until gs.playerNum) {
+      players(i) = new Human(sc.nextInt(), sc.nextInt())
+    }
+    for(i <- 0 until gs.playerNum) {
+      enemies(i) = new Human(sc.nextInt(),sc.nextInt())
+    }
+
+    val choiceNum = sc.nextInt()
+    sc.nextLine()  // remove newline
+    val choices = new Array[GameGadgetsPackage.Command](choiceNum)
+    for(i <- 0 until choiceNum) {
+      choices(i) =
+        new GameGadgetsPackage.Command(sc.next(), sc.nextInt(), sc.next(), sc.next())
+      sc.nextLine()  // remove newline
+    }
+
+    val newGameState = new GameState(players, enemies, choices)
+    (fState, newGameState)
+  }
+
+  @tailrec
+  def everyTurnProcess(oldFieldState: FieldState, oldGameState: GameState): (FieldState, GameState) = {
+    val (fState, gs) = turnInput(oldFieldState, oldGameState)
+
+    printer(gs.choices(gs.choiceNum / 2))
+    everyTurnProcess(fState, gs)
+  }
+
+
+  /* main process */
+  def main(args: Array[String]){
+    val (fState, gs) = initialInput()
+    printer(gs.choices(gs.choiceNum / 2))  // temporal output
+
+    // game loop
+    everyTurnProcess(fState, gs)
   }
 }
 
