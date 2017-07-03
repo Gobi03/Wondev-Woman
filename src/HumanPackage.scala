@@ -11,8 +11,8 @@ object HumanPackage {
   class Human(val x: Int, val y: Int) extends HumanTrait {
     val coord = new Point(x, y)
 
-    def move(dir: Direction): Human = new Human(this.coord + dir)
-    def moveBack(dir: Direction): Human = new Human(this.coord - dir)
+    def move(dir: Direction): Human = new Human(this.coord + dir.vol)
+    def moveBack(dir: Direction): Human = new Human(this.coord - dir.vol)
 
     // constructors
     def this(p: Point) = this(p.x, p.y)

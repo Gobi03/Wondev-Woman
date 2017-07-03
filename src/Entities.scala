@@ -58,10 +58,22 @@ object Entities {
     }
   }
   def incrSquare(square: Square): Square = {
-    case Zero => One
-    case One => Two
-    case Two => Three
-    case Three => Four
-    case _   => throw new Exception("This Square can't increment")
+    square match {
+      case Zero => One
+      case One => Two
+      case Two => Three
+      case Three => Four
+      case Four => Four   // decr ミスるのでダメ
+      case _ => throw new Exception("This Square can't increment")
+    }
+  }
+  def decrSquare(square: Square): Square = {
+    square match {
+      case One => Zero
+      case Two => One
+      case Three => Two
+      case Four => Three
+      case _ => throw new Exception("This Square can't decrement")
+    }
   }
 }
